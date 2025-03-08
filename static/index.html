@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Manager</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search documents and tasks...">
+            <button onclick="search()">Search</button>
+        </div>
+        <div id="search-results"></div>
+        
+        <div class="tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="openTab('kanban-tab')">Kanban Board</button>
+                <button class="tab-button" onclick="openTab('documents-tab')">Documents</button>
+                <button class="tab-button" onclick="openTab('notes-tab')">Notes</button>
+            </div>
+            
+            <!-- Tab 1: Kanban Board -->
+            <div id="kanban-tab" class="tab-content active">
+                <div class="kanban">
+                    <div class="column" id="todo">
+                        <h2>Todo</h2>
+                    </div>
+                    <div class="column" id="doing">
+                        <h2>Doing</h2>
+                    </div>
+                    <div class="column" id="done">
+                        <h2>Done</h2>
+                    </div>
+                </div>
+                <div class="task-form">
+                    <h2>Add Task</h2>
+                    <input type="text" id="task-title" placeholder="Task Title">
+                    <textarea id="task-description" placeholder="Task Description"></textarea>
+                    <select id="task-status">
+                        <option value="todo">Todo</option>
+                        <option value="doing">Doing</option>
+                        <option value="done">Done</option>
+                    </select>
+                    <button onclick="addTask()">Add Task</button>
+                </div>
+            </div>
+            
+            <!-- Tab 2: Documents -->
+            <div id="documents-tab" class="tab-content">
+                <div class="document-forms">
+                    <div class="link-form">
+                        <h2>Add Link</h2>
+                        <input type="text" id="link-title" placeholder="Link Title">
+                        <input type="text" id="link-url" placeholder="URL (e.g., https://example.com)">
+                        <button onclick="addLink()">Add Link</button>
+                    </div>
+                    <div class="file-upload">
+                        <h2>Upload Text File</h2>
+                        <form id="file-form">
+                            <input type="file" id="file-input" accept=".txt">
+                            <button type="button" onclick="uploadFile()">Upload</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="document-list">
+                    <h2>Document List</h2>
+                    <div id="documents-container" class="items-list"></div>
+                    <div class="pagination">
+                        <button id="prev-documents" onclick="loadDocuments(currentDocumentPage - 1)" disabled>Previous</button>
+                        <span id="document-page-info">Page 1 of 1</span>
+                        <button id="next-documents" onclick="loadDocuments(currentDocumentPage + 1)" disabled>Next</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 3: Notes -->
+            <div id="notes-tab" class="tab-content">
+                <div class="notepad">
+                    <h2>Notepad</h2>
+                    <input type="text" id="note-title" placeholder="Note Title">
+                    <textarea id="note-content" placeholder="Write your note here..." class="notepad-area"></textarea>
+                    <button onclick="addNote()">Save Note</button>
+                </div>
+                <div class="notes-list">
+                    <h2>Notes List</h2>
+                    <div id="notes-container" class="items-list"></div>
+                    <div class="pagination">
+                        <button id="prev-notes" onclick="loadNotes(currentNotePage - 1)" disabled>Previous</button>
+                        <span id="note-page-info">Page 1 of 1</span>
+                        <button id="next-notes" onclick="loadNotes(currentNotePage + 1)" disabled>Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit Document Modal -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title">Edit Document</h2>
+            <form id="edit-form">
+                <input type="hidden" id="edit-id">
+                <input type="hidden" id="edit-type">
+                
+                <div>
+                    <label for="edit-title">Title:</label>
+                    <input type="text" id="edit-title" required>
+                </div>
+                
+                <div id="edit-link-container">
+                    <label for="edit-link">Link:</label>
+                    <input type="text" id="edit-link">
+                </div>
+                
+                <div id="edit-content-container">
+                    <label for="edit-content">Content:</label>
+                    <textarea id="edit-content" class="edit-content-area"></textarea>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button type="button" onclick="saveEdit()">Save</button>
+                    <button type="button" class="cancel-button" onclick="closeModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Edit Task Modal -->
+    <div id="edit-task-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeTaskModal()">&times;</span>
+            <h2>Edit Task</h2>
+            <form id="edit-task-form">
+                <input type="hidden" id="edit-task-id">
+                
+                <div>
+                    <label for="edit-task-title">Title:</label>
+                    <input type="text" id="edit-task-title" required>
+                </div>
+                
+                <div>
+                    <label for="edit-task-description">Description:</label>
+                    <textarea id="edit-task-description" required></textarea>
+                </div>
+                
+                <div>
+                    <label for="edit-task-status">Status:</label>
+                    <select id="edit-task-status">
+                        <option value="todo">Todo</option>
+                        <option value="doing">Doing</option>
+                        <option value="done">Done</option>
+                    </select>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button type="button" onclick="saveTaskEdit()">Save</button>
+                    <button type="button" class="cancel-button" onclick="closeTaskModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content confirm-content">
+            <h2>Confirm Delete</h2>
+            <p>Are you sure you want to delete this item? This action cannot be undone.</p>
+            <input type="hidden" id="delete-id">
+            <input type="hidden" id="delete-type" value="document">
+            <div class="modal-buttons">
+                <button type="button" class="delete-button" onclick="confirmDelete()">Delete</button>
+                <button type="button" class="cancel-button" onclick="closeConfirmModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

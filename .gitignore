@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.env
+.venv
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Virtual Environment
+/venv
+/.venv
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
