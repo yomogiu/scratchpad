@@ -4,7 +4,7 @@ This app lets the users add notes, tasks (Kanban board), track links, and upload
 
 Using all-MiniLM-L6-v2 so sometimes the result can be janky, but it's decently fast. You can swap with another model of your liking by updating app.py.
 
-[https://github.com/user-attachments/assets/42d5c145-20cf-4ac7-ac55-0491c308cff2]
+https://github.com/user-attachments/assets/42d5c145-20cf-4ac7-ac55-0491c308cff2.webm
 
 
 
