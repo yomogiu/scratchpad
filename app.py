@@ -4,6 +4,7 @@ from datetime import datetime
 from sentence_transformers import SentenceTransformer
 import numpy as np
 import os
+from rank_bm25 import BM25Okapi
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -59,7 +60,7 @@ def add_link():
               (title, content, link, date))
     doc_id = c.lastrowid
     conn.commit()
-    store_embedding(str(doc_id), content)
+    store_embedding(str(doc_id), title)
     conn.close()
     return {"message": "Link added"}
 
@@ -75,12 +76,12 @@ def upload_txt():
               (title, content, None, date))
     doc_id = c.lastrowid
     conn.commit()
-    store_embedding(str(doc_id), content)
+    store_embedding(str(doc_id), f"{title} {content}")
     conn.close()
     return {"message": "File uploaded"}
 
 @app.route('/add_note', methods=['POST'])
-def add_note():
+def add_note():  
     data = request.json
     title = data['title']
     content = data['content']
@@ -91,7 +92,7 @@ def add_note():
               (title, content, None, date))
     doc_id = c.lastrowid
     conn.commit()
-    store_embedding(str(doc_id), content)
+    store_embedding(str(doc_id), f"{title} {content}")
     conn.close()
     return {"message": "Note added"}
 
@@ -347,32 +348,90 @@ def update_document():
     
     return {"message": "Document updated successfully"}
 
+def init_bm25():
+    conn = sqlite3.connect('docs.db')
+    c = conn.cursor()
+    c.execute("SELECT id, content FROM documents")
+    documents = c.fetchall()
+    c.execute("SELECT id, title, description FROM tasks")
+    tasks = c.fetchall()
+    conn.close()
+    
+    corpus = []
+    doc_ids = []
+    
+    for doc_id, content in documents:
+        corpus.append(content.lower().split())
+        doc_ids.append(str(doc_id))
+    
+    for task_id, title, description in tasks:
+        corpus.append((title + " " + description).lower().split())
+        doc_ids.append(f"task_{task_id}")
+    
+    return BM25Okapi(corpus), doc_ids
+
 @app.route('/search', methods=['POST'])
 def search():
     data = request.json
     query = data['query']
-    query_embedding = model.encode(query)
     
+    # Embedding-based search
+    query_embedding = model.encode(query)
     conn = sqlite3.connect('docs.db')
     c = conn.cursor()
     c.execute("SELECT doc_id, embedding FROM embeddings")
     embeddings = c.fetchall()
     
-    results = []
+    semantic_results = []
     for doc_id, emb_bytes in embeddings:
         emb = np.frombuffer(emb_bytes, dtype=np.float32)
         similarity = np.dot(query_embedding, emb) / (np.linalg.norm(query_embedding) * np.linalg.norm(emb))
+        semantic_results.append((doc_id, float(similarity)))
+    
+    # BM25 search
+    bm25, doc_ids = init_bm25()  # In practice, initialize this once and store it
+    tokenized_query = query.lower().split()
+    bm25_scores = bm25.get_scores(tokenized_query)
+    bm25_results = [(doc_id, score) for doc_id, score in zip(doc_ids, bm25_scores)]
+    
+    # Combine results (simple approach - could be much more sophisticated)
+    # Normalize scores first
+    max_semantic = max([score for _, score in semantic_results]) if semantic_results else 1
+    max_bm25 = max(bm25_scores) if any(bm25_scores) else 1
+    
+    normalized_semantic = [(doc_id, score/max_semantic) for doc_id, score in semantic_results]
+    normalized_bm25 = [(doc_id, score/max_bm25) for doc_id, score in bm25_results]
+    
+    # Combine with weighting
+    semantic_weight = 0.7  # Adjust these weights based on your needs
+    bm25_weight = 0.3
+    
+    combined_scores = {}
+    for doc_id, score in normalized_semantic:
+        combined_scores[doc_id] = score * semantic_weight
+    
+    for doc_id, score in normalized_bm25:
+        if doc_id in combined_scores:
+            combined_scores[doc_id] += score * bm25_weight
+        else:
+            combined_scores[doc_id] = score * bm25_weight
+    
+    # Sort and format results
+    sorted_results = sorted(combined_scores.items(), key=lambda x: x[1], reverse=True)[:5]
+    
+    # Format final results
+    results = []
+    for doc_id, score in sorted_results:
         if doc_id.startswith("task_"):
             task_id = int(doc_id.split("_")[1])
-            c.execute("SELECT title, description, date FROM tasks WHERE id = ?", (task_id,))
-            title, description, date = c.fetchone()
-            results.append({"title": title, "description": description, "date": date, "similarity": float(similarity), "type": "task"})
+            c.execute("SELECT id, title, description, date FROM tasks WHERE id = ?", (task_id,))
+            id, title, description, date = c.fetchone()
+            results.append({"id": id, "title": title, "description": description, "date": date, "similarity": score, "type": "task"})
         else:
             c.execute("SELECT title, link, date FROM documents WHERE id = ?", (int(doc_id),))
             title, link, date = c.fetchone()
-            results.append({"id": int(doc_id), "title": title, "link": link, "date": date, "similarity": float(similarity), "type": "document"})
+            results.append({"id": int(doc_id), "title": title, "link": link, "date": date, "similarity": score, "type": "document"})
     
-    results = sorted(results, key=lambda x: x['similarity'], reverse=True)[:5]
     conn.close()
     return {"results": results}
 

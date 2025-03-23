@@ -1,0 +1,814 @@
+[
+  {
+    "query": "steve jobs",
+    "relevant_docs": [
+      "4"
+    ],
+    "results": [
+      {
+        "doc_id": "task_2",
+        "title": "grocery",
+        "type": "task",
+        "embedding_score": 0.18455076217651367,
+        "hybrid_score": 0.7
+      },
+      {
+        "doc_id": "9",
+        "title": "Google Cloud Architecture Framework",
+        "type": "document",
+        "embedding_score": 0.12694624066352844,
+        "hybrid_score": 0.48150637481235353
+      },
+      {
+        "doc_id": "10",
+        "title": "\u201cTi amo\u201d: An Exchange of Letters",
+        "type": "document",
+        "embedding_score": 0.10838151723146439,
+        "hybrid_score": 0.4110904835465376
+      },
+      {
+        "doc_id": "4",
+        "title": "apple macbook",
+        "type": "document",
+        "embedding_score": 0.0874517634510994,
+        "hybrid_score": 0.33170404550927446
+      },
+      {
+        "doc_id": "7",
+        "title": "The Fifth Discipline: The Art & Practice of The Learning Organization",
+        "type": "document",
+        "embedding_score": 0.07840140908956528,
+        "hybrid_score": 0.29737610246336854
+      },
+      {
+        "doc_id": "12",
+        "title": "testing",
+        "type": "document",
+        "embedding_score": 0.06836143136024475,
+        "hybrid_score": 0.2592945235652958
+      },
+      {
+        "doc_id": "2",
+        "title": "DeepSeek LLM: Scaling Open-Source Language Models with Longtermism",
+        "type": "document",
+        "embedding_score": 0.06501223146915436,
+        "hybrid_score": 0.24659102726913346
+      },
+      {
+        "doc_id": "8",
+        "title": "Use API gateways in microservices",
+        "type": "document",
+        "embedding_score": 0.04534708335995674,
+        "hybrid_score": 0.17200123140975787
+      },
+      {
+        "doc_id": "task_3",
+        "title": "this is note",
+        "type": "task",
+        "embedding_score": 0.04468245804309845,
+        "hybrid_score": 0.16948031133165042
+      },
+      {
+        "doc_id": "task_1",
+        "title": "books to read",
+        "type": "task",
+        "embedding_score": 0.03134317323565483,
+        "hybrid_score": 0.11888447929558614
+      }
+    ]
+  },
+  {
+    "query": "technology",
+    "relevant_docs": [
+      "13",
+      "task_4",
+      "12",
+      "9",
+      "task_5",
+      "5",
+      "4"
+    ],
+    "results": [
+      {
+        "doc_id": "7",
+        "title": "The Fifth Discipline: The Art & Practice of The Learning Organization",
+        "type": "document",
+        "embedding_score": 0.2757866382598877,
+        "hybrid_score": 0.7
+      },
+      {
+        "doc_id": "13",
+        "title": "Siemens partnership with Alphawave Semi",
+        "type": "document",
+        "embedding_score": 0.24516798555850983,
+        "hybrid_score": 0.9209226754254578
+      },
+      {
+        "doc_id": "10",
+        "title": "\u201cTi amo\u201d: An Exchange of Letters",
+        "type": "document",
+        "embedding_score": 0.17491891980171204,
+        "hybrid_score": 0.43949378539272754
+      },
+      {
+        "doc_id": "task_4",
+        "title": "read some blogs",
+        "type": "task",
+        "embedding_score": 0.12954774498939514,
+        "hybrid_score": 0.32231583011318604
+      },
+      {
+        "doc_id": "12",
+        "title": "testing",
+        "type": "document",
+        "embedding_score": 0.11584062874317169,
+        "hybrid_score": 0.28691511895338984
+      },
+      {
+        "doc_id": "9",
+        "title": "Google Cloud Architecture Framework",
+        "type": "document",
+        "embedding_score": 0.10839414596557617,
+        "hybrid_score": 0.26768344532994004
+      },
+      {
+        "doc_id": "task_5",
+        "title": "research UI libraries",
+        "type": "task",
+        "embedding_score": 0.1011294275522232,
+        "hybrid_score": 0.24892120580496213
+      },
+      {
+        "doc_id": "task_3",
+        "title": "this is note",
+        "type": "task",
+        "embedding_score": 0.09390600025653839,
+        "hybrid_score": 0.23026560686752848
+      },
+      {
+        "doc_id": "5",
+        "title": "Pytorch 2.x Eager mode vs Graph mode",
+        "type": "document",
+        "embedding_score": 0.08475795388221741,
+        "hybrid_score": 0.2066393866213127
+      },
+      {
+        "doc_id": "4",
+        "title": "apple macbook",
+        "type": "document",
+        "embedding_score": 0.08435505628585815,
+        "hybrid_score": 0.2055988423390958
+      }
+    ]
+  },
+  {
+    "query": "system design",
+    "relevant_docs": [
+      "4",
+      "6",
+      "task_5",
+      "9"
+    ],
+    "results": [
+      {
+        "doc_id": "13",
+        "title": "Siemens partnership with Alphawave Semi",
+        "type": "document",
+        "embedding_score": 0.20385444164276123,
+        "hybrid_score": 0.7634651019147621
+      },
+      {
+        "doc_id": "4",
+        "title": "apple macbook",
+        "type": "document",
+        "embedding_score": 0.1990930140018463,
+        "hybrid_score": 0.6836501018973073
+      },
+      {
+        "doc_id": "6",
+        "title": "UI library notes",
+        "type": "document",
+        "embedding_score": 0.17366409301757812,
+        "hybrid_score": 0.5963316969337243
+      },
+      {
+        "doc_id": "task_5",
+        "title": "research UI libraries",
+        "type": "task",
+        "embedding_score": 0.16665923595428467,
+        "hybrid_score": 0.572278260055963
+      },
+      {
+        "doc_id": "7",
+        "title": "The Fifth Discipline: The Art & Practice of The Learning Organization",
+        "type": "document",
+        "embedding_score": 0.1169382631778717,
+        "hybrid_score": 0.40154525731628515
+      },
+      {
+        "doc_id": "task_1",
+        "title": "books to read",
+        "type": "task",
+        "embedding_score": 0.10233518481254578,
+        "hybrid_score": 0.3514008759952165
+      },
+      {
+        "doc_id": "9",
+        "title": "Google Cloud Architecture Framework",
+        "type": "document",
+        "embedding_score": 0.08930592238903046,
+        "hybrid_score": 0.6066606995096648
+      },
+      {
+        "doc_id": "10",
+        "title": "\u201cTi amo\u201d: An Exchange of Letters",
+        "type": "document",
+        "embedding_score": 0.059908024966716766,
+        "hybrid_score": 0.20571353333664705
+      },
+      {
+        "doc_id": "12",
+        "title": "testing",
+        "type": "document",
+        "embedding_score": 0.05270451307296753,
+        "hybrid_score": 0.18097795100157596
+      },
+      {
+        "doc_id": "task_4",
+        "title": "read some blogs",
+        "type": "task",
+        "embedding_score": 0.042249422520399094,
+        "hybrid_score": 0.14507702420389987
+      }
+    ]
+  },
+  {
+    "query": "what do i buy?",
+    "relevant_docs": [
+      "task_2",
+      "task_3",
+      "4",
+      "task_1"
+    ],
+    "results": [
+      {
+        "doc_id": "task_2",
+        "title": "grocery",
+        "type": "task",
+        "embedding_score": 0.2938084006309509,
+        "hybrid_score": 0.7
+      },
+      {
+        "doc_id": "task_3",
+        "title": "this is note",
+        "type": "task",
+        "embedding_score": 0.2675645649433136,
+        "hybrid_score": 0.6374739287852381
+      },
+      {
+        "doc_id": "13",
+        "title": "Siemens partnership with Alphawave Semi",
+        "type": "document",
+        "embedding_score": 0.25550273060798645,
+        "hybrid_score": 0.6087365474966258
+      },
+      {
+        "doc_id": "6",
+        "title": "UI library notes",
+        "type": "document",
+        "embedding_score": 0.21902430057525635,
+        "hybrid_score": 0.5218265035085196
+      },
+      {
+        "doc_id": "4",
+        "title": "apple macbook",
+        "type": "document",
+        "embedding_score": 0.20264878869056702,
+        "hybrid_score": 0.7828117636485763
+      },
+      {
+        "doc_id": "task_5",
+        "title": "research UI libraries",
+        "type": "task",
+        "embedding_score": 0.1751888543367386,
+        "hybrid_score": 0.41738833121301316
+      },
+      {
+        "doc_id": "task_1",
+        "title": "books to read",
+        "type": "task",
+        "embedding_score": 0.10208994895219803,
+        "hybrid_score": 0.24322981954590994
+      },
+      {
+        "doc_id": "12",
+        "title": "testing",
+        "type": "document",
+        "embedding_score": 0.0708690732717514,
+        "hybrid_score": 0.16884592538434057
+      },
+      {
+        "doc_id": "2",
+        "title": "DeepSeek LLM: Scaling Open-Source Language Models with Longtermism",
+        "type": "document",
+        "embedding_score": 0.05668690800666809,
+        "hybrid_score": 0.13505684493518028
+      },
+      {
+        "doc_id": "9",
+        "title": "Google Cloud Architecture Framework",
+        "type": "document",
+        "embedding_score": 0.03542888164520264,
+        "hybrid_score": 0
+      },
+      {
+        "doc_id": "11",
+        "title": "Sonnet 116",
+        "type": "document",
+        "embedding_score": 0,
+        "hybrid_score": 0.16334355828220856
+      }
+    ]
+  },
+  {
+    "query": "literature",
+    "relevant_docs": [
+      "task_1",
+      "11",
+      "7",
+      "10"
+    ],
+    "results": [
+      {
+        "doc_id": "task_1",
+        "title": "books to read",
+        "type": "task",
+        "embedding_score": 0.3314448595046997,
+        "hybrid_score": 0.7
+      },
+      {
+        "doc_id": "11",
+        "title": "Sonnet 116",
+        "type": "document",
+        "embedding_score": 0.2914884388446808,
+        "hybrid_score": 0.615613431133583
+      },
+      {
+        "doc_id": "7",
+        "title": "The Fifth Discipline: The Art & Practice of The Learning Organization",
+        "type": "document",
+        "embedding_score": 0.25491631031036377,
+        "hybrid_score": 0.5383743693714593
+      },
+      {
+        "doc_id": "task_4",
+        "title": "read some blogs",
+        "type": "task",
+        "embedding_score": 0.24632421135902405,
+        "hybrid_score": 0.5202281556243955
+      },
+      {
+        "doc_id": "10",
+        "title": "\u201cTi amo\u201d: An Exchange of Letters",
+        "type": "document",
+        "embedding_score": 0.24456582963466644,
+        "hybrid_score": 0.516514514661945
+      },
+      {
+        "doc_id": "task_3",
+        "title": "this is note",
+        "type": "task",
+        "embedding_score": 0.1771693080663681,
+        "hybrid_score": 0.37417540833726265
+      },
+      {
+        "doc_id": "2",
+        "title": "DeepSeek LLM: Scaling Open-Source Language Models with Longtermism",
+        "type": "document",
+        "embedding_score": 0.12633758783340454,
+        "hybrid_score": 0.2668205855282821
+      },
+      {
+        "doc_id": "4",
+        "title": "apple macbook",
+        "type": "document",
+        "embedding_score": 0.1053057461977005,
+        "hybrid_score": 0.2224020684724034
+      },
+      {
+        "doc_id": "task_2",
+        "title": "grocery",
+        "type": "task",
+        "embedding_score": 0.09881345182657242,
+        "hybrid_score": 0.20869056886857495
+      },
+      {
+        "doc_id": "8",
+        "title": "Use API gateways in microservices",
+        "type": "document",
+        "embedding_score": 0.09437600523233414,
+        "hybrid_score": 0.19931883620508273
+      }
+    ]
+  },
+  {
+    "query": "youtube",
+    "relevant_docs": [
+      "9"
+    ],
+    "results": [
+      {
+        "doc_id": "12",
+        "title": "testing",
+        "type": "document",
+        "embedding_score": 0.18833982944488525,
+        "hybrid_score": 0.7
+      },
+      {
+        "doc_id": "2",
+        "title": "DeepSeek LLM: Scaling Open-Source Language Models with Longtermism",
+        "type": "document",
+        "embedding_score": 0.1733977049589157,
+        "hybrid_score": 0.6444648156950812
+      },
+      {
+        "doc_id": "task_4",
+        "title": "read some blogs",
+        "type": "task",
+        "embedding_score": 0.13963118195533752,
+        "hybrid_score": 0.5189652536949912
+      },
+      {
+        "doc_id": "9",
+        "title": "Google Cloud Architecture Framework",
+        "type": "document",
+        "embedding_score": 0.1263136863708496,
+        "hybrid_score": 0.4694683048200877
+      },
+      {
+        "doc_id": "7",
+        "title": "The Fifth Discipline: The Art & Practice of The Learning Organization",
+        "type": "document",
+        "embedding_score": 0.12467522919178009,
+        "hybrid_score": 0.46337867402489635
+      },
+      {
+        "doc_id": "task_5",
+        "title": "research UI libraries",
+        "type": "task",
+        "embedding_score": 0.11811874061822891,
+        "hybrid_score": 0.43901026498994555
+      },
+      {
+        "doc_id": "task_3",
+        "title": "this is note",
+        "type": "task",
+        "embedding_score": 0.11361175030469894,
+        "hybrid_score": 0.42225919736516465
+      },
+      {
+        "doc_id": "6",
+        "title": "UI library notes",
+        "type": "document",
+        "embedding_score": 0.11356113106012344,
+        "hybrid_score": 0.4220710615294931
+      },
+      {
+        "doc_id": "13",
+        "title": "Siemens partnership with Alphawave Semi",
+        "type": "document",
+        "embedding_score": 0.09775738418102264,
+        "hybrid_score": 0.36333349737231696
+      },
+      {
+        "doc_id": "4",
+        "title": "apple macbook",
+        "type": "document",
+        "embedding_score": 0.09454531967639923,
+        "hybrid_score": 0.3513952623220704
+      }
+    ]
+  },
+  {
+    "query": "webdev",
+    "relevant_docs": [
+      "6",
+      "task_5",
+      "9",
+      "4",
+      "12"
+    ],
+    "results": [
+      {
+        "doc_id": "6",
+        "title": "UI library notes",
+        "type": "document",
+        "embedding_score": 0.3509523272514343,
+        "hybrid_score": 0.7
+      },
+      {
+        "doc_id": "13",
+        "title": "Siemens partnership with Alphawave Semi",
+        "type": "document",
+        "embedding_score": 0.2583847939968109,
+        "hybrid_score": 0.5153673070479073
+      },
+      {
+        "doc_id": "task_5",
+        "title": "research UI libraries",
+        "type": "task",
+        "embedding_score": 0.2357138842344284,
+        "hybrid_score": 0.4701485248903575
+      },
+      {
+        "doc_id": "9",
+        "title": "Google Cloud Architecture Framework",
+        "type": "document",
+        "embedding_score": 0.20633254945278168,
+        "hybrid_score": 0.41154531086346247
+      },
+      {
+        "doc_id": "2",
+        "title": "DeepSeek LLM: Scaling Open-Source Language Models with Longtermism",
+        "type": "document",
+        "embedding_score": 0.164576455950737,
+        "hybrid_score": 0.3282597384885843
+      },
+      {
+        "doc_id": "4",
+        "title": "apple macbook",
+        "type": "document",
+        "embedding_score": 0.1598425954580307,
+        "hybrid_score": 0.318817708652662
+      },
+      {
+        "doc_id": "7",
+        "title": "The Fifth Discipline: The Art & Practice of The Learning Organization",
+        "type": "document",
+        "embedding_score": 0.14354455471038818,
+        "hybrid_score": 0.28631007830668564
+      },
+      {
+        "doc_id": "task_4",
+        "title": "read some blogs",
+        "type": "task",
+        "embedding_score": 0.10865525156259537,
+        "hybrid_score": 0.21672081986031597
+      },
+      {
+        "doc_id": "12",
+        "title": "testing",
+        "type": "document",
+        "embedding_score": 0.10338965058326721,
+        "hybrid_score": 0.2062181948616534
+      },
+      {
+        "doc_id": "5",
+        "title": "Pytorch 2.x Eager mode vs Graph mode",
+        "type": "document",
+        "embedding_score": 0.05542212724685669,
+        "hybrid_score": 0.11054347288885552
+      }
+    ]
+  },
+  {
+    "query": "python",
+    "relevant_docs": [
+      "6",
+      "5"
+    ],
+    "results": [
+      {
+        "doc_id": "2",
+        "title": "DeepSeek LLM: Scaling Open-Source Language Models with Longtermism",
+        "type": "document",
+        "embedding_score": 0.2144121527671814,
+        "hybrid_score": 0.7
+      },
+      {
+        "doc_id": "6",
+        "title": "UI library notes",
+        "type": "document",
+        "embedding_score": 0.1957625448703766,
+        "hybrid_score": 0.6391138731677266
+      },
+      {
+        "doc_id": "10",
+        "title": "\u201cTi amo\u201d: An Exchange of Letters",
+        "type": "document",
+        "embedding_score": 0.18784569203853607,
+        "hybrid_score": 0.6132674045288622
+      },
+      {
+        "doc_id": "task_1",
+        "title": "books to read",
+        "type": "task",
+        "embedding_score": 0.17641469836235046,
+        "hybrid_score": 0.5759481785891901
+      },
+      {
+        "doc_id": "5",
+        "title": "Pytorch 2.x Eager mode vs Graph mode",
+        "type": "document",
+        "embedding_score": 0.15652379393577576,
+        "hybrid_score": 0.5110095409284732
+      },
+      {
+        "doc_id": "task_5",
+        "title": "research UI libraries",
+        "type": "task",
+        "embedding_score": 0.12914878129959106,
+        "hybrid_score": 0.42163723344487253
+      },
+      {
+        "doc_id": "12",
+        "title": "testing",
+        "type": "document",
+        "embedding_score": 0.11743970215320587,
+        "hybrid_score": 0.3834101306585411
+      },
+      {
+        "doc_id": "task_4",
+        "title": "read some blogs",
+        "type": "task",
+        "embedding_score": 0.09817037731409073,
+        "hybrid_score": 0.3205007889384052
+      },
+      {
+        "doc_id": "task_3",
+        "title": "this is note",
+        "type": "task",
+        "embedding_score": 0.08952511101961136,
+        "hybrid_score": 0.29227623949923814
+      },
+      {
+        "doc_id": "7",
+        "title": "The Fifth Discipline: The Art & Practice of The Learning Organization",
+        "type": "document",
+        "embedding_score": 0.0752783864736557,
+        "hybrid_score": 0.24576438346187174
+      }
+    ]
+  },
+  {
+    "query": "semiconductor",
+    "relevant_docs": [
+      "13",
+      "task_4",
+      "2",
+      "4"
+    ],
+    "results": [
+      {
+        "doc_id": "13",
+        "title": "Siemens partnership with Alphawave Semi",
+        "type": "document",
+        "embedding_score": 0.2635563611984253,
+        "hybrid_score": 1.0
+      },
+      {
+        "doc_id": "7",
+        "title": "The Fifth Discipline: The Art & Practice of The Learning Organization",
+        "type": "document",
+        "embedding_score": 0.12291485071182251,
+        "hybrid_score": 0.3264591873519531
+      },
+      {
+        "doc_id": "task_4",
+        "title": "read some blogs",
+        "type": "task",
+        "embedding_score": 0.1130685806274414,
+        "hybrid_score": 0.3003077067816258
+      },
+      {
+        "doc_id": "2",
+        "title": "DeepSeek LLM: Scaling Open-Source Language Models with Longtermism",
+        "type": "document",
+        "embedding_score": 0.095780149102211,
+        "hybrid_score": 0.25439000624640695
+      },
+      {
+        "doc_id": "task_3",
+        "title": "this is note",
+        "type": "task",
+        "embedding_score": 0.09518251568078995,
+        "hybrid_score": 0.2528027047937216
+      },
+      {
+        "doc_id": "10",
+        "title": "\u201cTi amo\u201d: An Exchange of Letters",
+        "type": "document",
+        "embedding_score": 0.08411255478858948,
+        "hybrid_score": 0.22340112788127392
+      },
+      {
+        "doc_id": "4",
+        "title": "apple macbook",
+        "type": "document",
+        "embedding_score": 0.061546679586172104,
+        "hybrid_score": 0.1634666509828027
+      },
+      {
+        "doc_id": "5",
+        "title": "Pytorch 2.x Eager mode vs Graph mode",
+        "type": "document",
+        "embedding_score": 0.06151720881462097,
+        "hybrid_score": 0.16338837725041397
+      },
+      {
+        "doc_id": "12",
+        "title": "testing",
+        "type": "document",
+        "embedding_score": 0.047970108687877655,
+        "hybrid_score": 0.127407572060966
+      },
+      {
+        "doc_id": "task_5",
+        "title": "research UI libraries",
+        "type": "task",
+        "embedding_score": 0.04064894840121269,
+        "hybrid_score": 0.10796272854680349
+      }
+    ]
+  },
+  {
+    "query": "art",
+    "relevant_docs": [
+      "10",
+      "11",
+      "task_1"
+    ],
+    "results": [
+      {
+        "doc_id": "7",
+        "title": "The Fifth Discipline: The Art & Practice of The Learning Organization",
+        "type": "document",
+        "embedding_score": 0.3000643253326416,
+        "hybrid_score": 1.0
+      },
+      {
+        "doc_id": "10",
+        "title": "\u201cTi amo\u201d: An Exchange of Letters",
+        "type": "document",
+        "embedding_score": 0.27035394310951233,
+        "hybrid_score": 0.6306906359723525
+      },
+      {
+        "doc_id": "6",
+        "title": "UI library notes",
+        "type": "document",
+        "embedding_score": 0.16887524724006653,
+        "hybrid_score": 0.39395777201105064
+      },
+      {
+        "doc_id": "11",
+        "title": "Sonnet 116",
+        "type": "document",
+        "embedding_score": 0.16137762367725372,
+        "hybrid_score": 0.37646706734913915
+      },
+      {
+        "doc_id": "task_1",
+        "title": "books to read",
+        "type": "task",
+        "embedding_score": 0.1311323344707489,
+        "hybrid_score": 0.3059098545878984
+      },
+      {
+        "doc_id": "9",
+        "title": "Google Cloud Architecture Framework",
+        "type": "document",
+        "embedding_score": 0.08800189942121506,
+        "hybrid_score": 0.20529374668768535
+      },
+      {
+        "doc_id": "5",
+        "title": "Pytorch 2.x Eager mode vs Graph mode",
+        "type": "document",
+        "embedding_score": 0.08767056465148926,
+        "hybrid_score": 0.2045207979589388
+      },
+      {
+        "doc_id": "task_3",
+        "title": "this is note",
+        "type": "task",
+        "embedding_score": 0.08598467707633972,
+        "hybrid_score": 0.20058790356605677
+      },
+      {
+        "doc_id": "task_5",
+        "title": "research UI libraries",
+        "type": "task",
+        "embedding_score": 0.08094071596860886,
+        "hybrid_score": 0.1888211839751907
+      },
+      {
+        "doc_id": "task_4",
+        "title": "read some blogs",
+        "type": "task",
+        "embedding_score": 0.07820548117160797,
+        "hybrid_score": 0.18244033761573733
+      }
+    ]
+  }
+]
