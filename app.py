@@ -5,6 +5,8 @@ from sentence_transformers import SentenceTransformer
 import numpy as np
 import os
 from rank_bm25 import BM25Okapi
+import heapq
+top_k_results = heapq.nlargest(k, zip(self.doc_ids, similarities), key=lambda x: x[1])
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -394,13 +396,24 @@ def search():
     bm25_scores = bm25.get_scores(tokenized_query)
     bm25_results = [(doc_id, score) for doc_id, score in zip(doc_ids, bm25_scores)]
     
-    # Combine results (simple approach - could be much more sophisticated)
-    # Normalize scores first
+
+    # Min-max normalization for semantic scores
+    min_semantic = min([score for _, score in semantic_results]) if semantic_results else 0
     max_semantic = max([score for _, score in semantic_results]) if semantic_results else 1
+    if max_semantic > min_semantic:
+        normalized_semantic = [(doc_id, (score - min_semantic) / (max_semantic - min_semantic)) 
+                            for doc_id, score in semantic_results]
+    else:
+        normalized_semantic = [(doc_id, 0) for doc_id, _ in semantic_results]
+
+    # Min-max normalization for BM25 scores
+    min_bm25 = min(bm25_scores) if any(bm25_scores) else 0
     max_bm25 = max(bm25_scores) if any(bm25_scores) else 1
-    
-    normalized_semantic = [(doc_id, score/max_semantic) for doc_id, score in semantic_results]
-    normalized_bm25 = [(doc_id, score/max_bm25) for doc_id, score in bm25_results]
+    if max_bm25 > min_bm25:
+        normalized_bm25 = [(doc_id, (score - min_bm25) / (max_bm25 - min_bm25)) 
+                        for doc_id, score in bm25_results]
+    else:
+        normalized_bm25 = [(doc_id, 0) for doc_id, _ in bm25_results]
     
     # Combine with weighting
     semantic_weight = 0.7  # Adjust these weights based on your needs

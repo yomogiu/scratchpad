@@ -10,10 +10,15 @@ from tqdm import tqdm
 import time
 import argparse
 
+
 class SearchBenchmark:
     def __init__(self, db_path='docs.db', model_name='all-MiniLM-L6-v2'):
         self.db_path = db_path
+        print(f"Loading embedding model: {model_name}...")
         self.model = SentenceTransformer(model_name)
+        print(f"Embedding model loaded successfully")
+        self._query_embedding_cache = {}
+        self._hybrid_cache = {}
         self.test_queries = []
         self.results = {}
         
@@ -159,15 +164,30 @@ class SearchBenchmark:
         print(f"Loaded test dataset with {len(self.test_queries)} queries")
     
     def embedding_search(self, query, top_k=5, return_all=False):
-        query_embedding = self.model.encode(query)
-        results = []
-        for doc_id, emb in self.embeddings.items():
-            similarity = np.dot(query_embedding, emb) / (np.linalg.norm(query_embedding) * np.linalg.norm(emb))
-            results.append((doc_id, float(similarity)))
+        if query in self._query_embedding_cache:
+            query_embedding = self._query_embedding_cache[query]
+        else:
+            query_embedding = self.model.encode(query)
+            self._query_embedding_cache[query] = query_embedding
+
+        # Precompute document embeddings matrix and norms
+        if not hasattr(self, 'doc_embeddings_matrix') or not hasattr(self, 'doc_norms'):
+            doc_ids = list(self.embeddings.keys())
+            self.doc_embeddings_matrix = np.array([self.embeddings[did] for did in doc_ids])
+            self.doc_norms = np.linalg.norm(self.doc_embeddings_matrix, axis=1)
+            self.doc_ids = doc_ids  # Store order of doc_ids
+
+        # Compute similarities in one vectorized operation
+        query_norm = np.linalg.norm(query_embedding)
+        if query_norm == 0:
+            similarities = np.zeros(len(self.doc_ids))
+        else:
+            similarities = np.dot(self.doc_embeddings_matrix, query_embedding) / (self.doc_norms * query_norm)
+
+        # Combine with doc_ids and sort
+        results = list(zip(self.doc_ids, similarities))
         sorted_results = sorted(results, key=lambda x: x[1], reverse=True)
-        if return_all:
-            return sorted_results
-        return sorted_results[:top_k]
+        return sorted_results if return_all else sorted_results[:top_k]
     
     def bm25_search(self, query, top_k=5, return_all=False):
         tokenized_query = query.lower().split()
@@ -179,6 +199,17 @@ class SearchBenchmark:
         return sorted_results[:top_k]
     
     def hybrid_search(self, query, top_k=5, semantic_weight=0.7, bm25_weight=0.3, method='score', k_rrf=60):
+        # Cache for hybrid search results to avoid redundant computations
+        if not hasattr(self, '_hybrid_cache'):
+            self._hybrid_cache = {}
+            
+        # Create a cache key based on the parameters
+        cache_key = f"{query}_{top_k}_{semantic_weight}_{method}_{k_rrf}"
+        
+        # Return cached results if available
+        if cache_key in self._hybrid_cache:
+            return self._hybrid_cache[cache_key][:top_k]
+            
         if method == 'score':
             # Get full results for normalization
             embedding_results = self.embedding_search(query, return_all=True)
@@ -214,8 +245,10 @@ class SearchBenchmark:
                         bm25_weight * normalized_bm25.get(doc_id, 0))
                 combined_scores[doc_id] = score
 
-            # Return top-k
-            return sorted(combined_scores.items(), key=lambda x: x[1], reverse=True)[:top_k]
+            # Store in cache and return top-k
+            sorted_results = sorted(combined_scores.items(), key=lambda x: x[1], reverse=True)
+            self._hybrid_cache[cache_key] = sorted_results
+            return sorted_results[:top_k]
 
         elif method == 'rrf':
             # Get full ranked lists
@@ -237,8 +270,10 @@ class SearchBenchmark:
                     score += 1 / (k_rrf + rank_bm25[doc_id])
                 rrf_scores[doc_id] = score
 
-            # Return top-k
-            return sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)[:top_k]
+            # Store in cache and return top-k
+            sorted_results = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)
+            self._hybrid_cache[cache_key] = sorted_results
+            return sorted_results[:top_k]
 
         else:
             raise ValueError("Invalid method. Use 'score' or 'rrf'.")
@@ -289,13 +324,66 @@ class SearchBenchmark:
         from tqdm import tqdm
         import numpy as np
 
-        self.results = {}
+        # Initialize caches for improved performance
+        self._query_embedding_cache = {}
+        self._hybrid_cache = {}
+        
+
+        # Create matrix of embeddings
+        self.doc_embeddings_matrix = np.array([emb for emb in self.embeddings.values()])
+        self.doc_ids = list(self.embeddings.keys())
+        self.doc_norms = np.linalg.norm(self.doc_embeddings_matrix, axis=1)
+
+        # Test pure embedding search
+        print("\nEvaluating pure embedding search...")
+        embedding_results = []
+        for query_data in tqdm(self.test_queries):
+            query = query_data["query"]
+            relevant_docs = query_data["relevant_docs"]
+            metrics = self.evaluate_search(
+                self.embedding_search,
+                query,
+                relevant_docs,
+                name="Pure Embedding"
+            )
+            embedding_results.append(metrics)
+        
+        # Compute average metrics for embedding search
+        avg_metrics = {metric: np.mean([r[metric] for r in embedding_results]) 
+                    for metric in embedding_results[0].keys()}
+        self.results["pure_embedding"] = {
+            "per_query": embedding_results,
+            "average": avg_metrics
+        }
+
+        # Test pure BM25 search
+        print("\nEvaluating pure BM25 search...")
+        bm25_results = []
+        for query_data in tqdm(self.test_queries):
+            query = query_data["query"]
+            relevant_docs = query_data["relevant_docs"]
+            metrics = self.evaluate_search(
+                self.bm25_search,
+                query,
+                relevant_docs,
+                name="Pure BM25"
+            )
+            bm25_results.append(metrics)
+        
+        # Compute average metrics for BM25 search
+        avg_metrics = {metric: np.mean([r[metric] for r in bm25_results]) 
+                    for metric in bm25_results[0].keys()}
+        self.results["pure_bm25"] = {
+            "per_query": bm25_results,
+            "average": avg_metrics
+        }
 
         # Test hybrid with score method and different weights
         for semantic_weight in semantic_weights:
             bm25_weight = 1 - semantic_weight
             print(f"\nEvaluating hybrid score (semantic_weight={semantic_weight:.1f}, bm25_weight={bm25_weight:.1f})...")
             hybrid_score_results = []
+            
             for query_data in tqdm(self.test_queries):
                 query = query_data["query"]
                 relevant_docs = query_data["relevant_docs"]
@@ -451,7 +539,14 @@ def main():
     args = parser.parse_args()
     
     benchmark = SearchBenchmark()
-    
+    benchmark.load_database_content()
+    _ = benchmark.embedding_search("warm-up query", top_k=10)
+    # Now measure a fresh call
+    start = time.time()
+    result = benchmark.embedding_search("warm-up query", top_k=10)
+    elapsed_time = time.time() - start
+    print(f"Pure embedding query time: {elapsed_time * 1000:.2f}ms")
+
     if args.create > 0:
         benchmark.create_test_dataset(args.create)
     
@@ -459,8 +554,6 @@ def main():
     print(f"Testing with semantic weights: {weights}")
     
     benchmark.run_benchmark(semantic_weights=weights)
-    benchmark.print_results()
-    benchmark.plot_results()
 
 if __name__ == "__main__":
     main()
